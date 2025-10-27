@@ -1,46 +1,59 @@
 @echo off
+:intro
+cls
+echo ==================================
+echo =          -AutoCopy-            =
+echo ==================================
+echo "By irongt :)"
+pause
+cls
 :ini
 cls
 echo ==================================
 echo =          -AutoCopy-            =
 echo ==================================
 echo - 1 Hacer copia de seguridad
-echo - 2 Modificar rutas de copias de seguridad
+echo - 2 Modificar ruta de copias de seguridad
 echo - 3 Desactivar/Activar Copias Automaticas
+color 17
 set /p option="Selecciona una opcion: "
 
-if %copy%=1(
-    start copy.bat
+if "%option%"=="1" (
+    color 07
     cls
-    pause
+    call CopyEngine.bat
     goto ini
-) else if %copy%=2 (
-    goto modifrute
-) else if %copy%=3 (
-    goto switchcopies
-) else (
-    echo Opcion invalida
-    goto top
 )
+
+if "%option%"=="2" (
+    goto modifrute
+)
+
+if "%option%"=="3" (
+    goto switchcopies
+)
+
+echo Opcion invalida
+goto ini
+
 
 :modifrute
 echo espere...
-if exist copy1.cfg (
-    set copy1state=    SI
-)
-if exist copy2.cfg (
-    set copy2state=    SI
-)
-if exist copy3.cfg (
-    set copy3state=    SI
-)
 cls
 echo ==================================
-echo =          -AutoCopy-            =
+echo =    Modificar Rutas de Copia    =
 echo ==================================
-echo =  Nombre === Exsiste? =
-echo = copy1.cfg =%copy1state%    =
-echo = copy2.cfg =%copy2state%    =
-echo = copy3.cfg =%copy3state%    =
-set /p option="Selecciona un archivo de copia"
-pause
+set /p copydirtocopy="Escribe la ruta de la carpeta a guardar: "
+del /F /Q copy1.cfg
+<nul set /p="%copydirtocopy%" > copy1.cfg
+if exist copy1.cfg (
+    echo Ruta guardada correctamente.
+    pause
+    goto ini
+) else (
+    color 47
+    echo Error al guardar la ruta.
+    pause
+    goto ini
+)
+
