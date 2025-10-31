@@ -3,7 +3,6 @@ setlocal enabledelayedexpansion
 echo Haciendo copia de seguridad de los archivos seleccionados en copy.cfg
 
 REM Comprueba los archivos de Copy ======================================================
-pause
 
 :compcopy
 if not exist copy1.cfg (
@@ -32,18 +31,15 @@ for /f "delims=" %%a in (copy1.cfg) do (
     set "copy1rute=%%a"
 )
 echo Se hara una copia de seguridad de la ruta: %copy1rute%
-pause
 goto copy
 REM RIM ROM RUM RAM
 color 47
 echo Ha ocurrido un error al leer los archivos de configuracion.
-pause
 exit /b
 
 REM ================================================
 :copy
 echo Haciendo la copia de Copy1
-pause
 
 REM Establece la fecha y hora para la carpeta destino
 for /f "tokens=2 delims==." %%A in ('wmic os get LocalDateTime /value ^| find "="') do set "ldt=%%A"
@@ -69,7 +65,6 @@ if exist "%copy1rute%\" (
 )
 
 echo Copia hecha en "%dest%"
-pause
 goto :eof
 
 REM ================================================
